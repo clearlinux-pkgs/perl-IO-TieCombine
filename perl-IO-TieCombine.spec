@@ -4,7 +4,7 @@
 #
 Name     : perl-IO-TieCombine
 Version  : 1.005
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IO-TieCombine-1.005.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IO-TieCombine-1.005.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libi/libio-tiecombine-perl/libio-tiecombine-perl_1.005-1.debian.tar.xz
@@ -79,9 +79,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/IO/TieCombine.pm
-/usr/lib/perl5/vendor_perl/5.26.1/IO/TieCombine/Handle.pm
-/usr/lib/perl5/vendor_perl/5.26.1/IO/TieCombine/Scalar.pm
+/usr/lib/perl5/vendor_perl/5.28.0/IO/TieCombine.pm
+/usr/lib/perl5/vendor_perl/5.28.0/IO/TieCombine/Handle.pm
+/usr/lib/perl5/vendor_perl/5.28.0/IO/TieCombine/Scalar.pm
 
 %files dev
 %defattr(-,root,root,-)
