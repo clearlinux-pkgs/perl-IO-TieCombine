@@ -4,11 +4,11 @@
 #
 Name     : perl-IO-TieCombine
 Version  : 1.005
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IO-TieCombine-1.005.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IO-TieCombine-1.005.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libi/libio-tiecombine-perl/libio-tiecombine-perl_1.005-1.debian.tar.xz
-Summary  : 'produce tied (and other) separate but combined variables'
+Summary  : produce tied (and other) separate but combined variables
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-IO-TieCombine-license = %{version}-%{release}
@@ -23,6 +23,7 @@ produce tied (and other) separate but combined variables
 Summary: dev components for the perl-IO-TieCombine package.
 Group: Development
 Provides: perl-IO-TieCombine-devel = %{version}-%{release}
+Requires: perl-IO-TieCombine = %{version}-%{release}
 
 %description dev
 dev components for the perl-IO-TieCombine package.
@@ -41,7 +42,7 @@ license components for the perl-IO-TieCombine package.
 cd ..
 %setup -q -T -D -n IO-TieCombine-1.005 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/IO-TieCombine-1.005/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/IO-TieCombine-1.005/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
