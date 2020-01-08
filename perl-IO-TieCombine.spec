@@ -4,14 +4,15 @@
 #
 Name     : perl-IO-TieCombine
 Version  : 1.005
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IO-TieCombine-1.005.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IO-TieCombine-1.005.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libi/libio-tiecombine-perl/libio-tiecombine-perl_1.005-1.debian.tar.xz
-Summary  : produce tied (and other) separate but combined variables
+Summary  : 'produce tied (and other) separate but combined variables'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-IO-TieCombine-license = %{version}-%{release}
+Requires: perl-IO-TieCombine-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -37,18 +38,28 @@ Group: Default
 license components for the perl-IO-TieCombine package.
 
 
+%package perl
+Summary: perl components for the perl-IO-TieCombine package.
+Group: Default
+Requires: perl-IO-TieCombine = %{version}-%{release}
+
+%description perl
+perl components for the perl-IO-TieCombine package.
+
+
 %prep
 %setup -q -n IO-TieCombine-1.005
-cd ..
-%setup -q -T -D -n IO-TieCombine-1.005 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libio-tiecombine-perl_1.005-1.debian.tar.xz
+cd %{_builddir}/IO-TieCombine-1.005
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/IO-TieCombine-1.005/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/IO-TieCombine-1.005/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -58,7 +69,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -67,7 +78,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-IO-TieCombine
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-IO-TieCombine/LICENSE
+cp %{_builddir}/IO-TieCombine-1.005/LICENSE %{buildroot}/usr/share/package-licenses/perl-IO-TieCombine/20e9cc2dd827cab91b22f63a1c18473bf3ed9485
+cp %{_builddir}/IO-TieCombine-1.005/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-IO-TieCombine/0924704fc811cc36c96b8dadbb2c6ab0f7b2cf75
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -80,9 +92,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/IO/TieCombine.pm
-/usr/lib/perl5/vendor_perl/5.28.2/IO/TieCombine/Handle.pm
-/usr/lib/perl5/vendor_perl/5.28.2/IO/TieCombine/Scalar.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -92,4 +101,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-IO-TieCombine/LICENSE
+/usr/share/package-licenses/perl-IO-TieCombine/0924704fc811cc36c96b8dadbb2c6ab0f7b2cf75
+/usr/share/package-licenses/perl-IO-TieCombine/20e9cc2dd827cab91b22f63a1c18473bf3ed9485
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/IO/TieCombine.pm
+/usr/lib/perl5/vendor_perl/5.30.1/IO/TieCombine/Handle.pm
+/usr/lib/perl5/vendor_perl/5.30.1/IO/TieCombine/Scalar.pm
